@@ -624,7 +624,7 @@ SECTION "Tileset Data 1", ROMX, BANK[TILESETS_1]
 
 INCLUDE "tilesets/data_1.asm"
 
-SECTION "Roofs", ROMX, BANK[ROOFS]
+SECTION "Roofs", ROMX [$4000], BANK[ROOFS]
 
 INCLUDE "tilesets/roofs.asm"
 
@@ -632,7 +632,7 @@ SECTION "Tileset Data 2", ROMX, BANK[TILESETS_2]
 
 INCLUDE "tilesets/data_2.asm"
 
-SECTION "bank8", ROMX, BANK[$8]
+SECTION "bank8", ROMX [$4000], BANK[$8]
 
 INCLUDE "engine/clock_reset.asm"
 
@@ -1852,7 +1852,7 @@ DisplayDexEntry: ; 4424d
 	jr z, .skip_height
 	push hl
 	push de
-	ld hl, [sp+$0]
+	ld hl, sp+$0
 	ld d, h
 	ld e, l
 	hlcoord 12, 7
@@ -1876,7 +1876,7 @@ DisplayDexEntry: ; 4424d
 	or d
 	jr z, .skip_weight
 	push de
-	ld hl, [sp+$0]
+	ld hl, sp+$0
 	ld d, h
 	ld e, l
 	hlcoord 11, 9
@@ -3214,7 +3214,7 @@ CatchTutorial:: ; 4e554
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
-	jp [hl]
+	jp hl
 
 .dw ; 4e564 (13:6564)
 	dw .DudeTutorial
@@ -5308,7 +5308,7 @@ SECTION "Pic Animations 2", ROMX, BANK[$35]
 INCLUDE "gfx/pics/frame_pointers.asm"
 INCLUDE "gfx/pics/kanto_frames.asm"
 
-SECTION "bank36", ROMX, BANK[$36]
+SECTION "bank36", ROMX [$4000], BANK[$36]
 
 FontInversed: INCBIN "gfx/misc/font_inversed.1bpp"
 
@@ -5492,11 +5492,11 @@ INCLUDE "battle/used_move_text.asm"
 
 INCLUDE "misc/mobile_41.asm"
 
-SECTION "bank42", ROMX, BANK[$42]
+SECTION "bank42", ROMX [$4000], BANK[$42]
 
 INCLUDE "misc/mobile_42.asm"
 
-SECTION "Intro Logo", ROMX, BANK[$42]
+SECTION "Intro Logo", ROMX [$5407], BANK[$42]
 
 IntroLogoGFX: ; 109407
 INCBIN "gfx/intro/logo.2bpp.lz"
@@ -5525,7 +5525,7 @@ SECTION "bank5D", ROMX, BANK[$5D]
 
 INCLUDE "text/phone/extra3.asm"
 
-SECTION "bank5E", ROMX, BANK[$5E]
+SECTION "bank5E", ROMX [$4000], BANK[$5E]
 
 _UpdateBattleHUDs:
 	callba DrawPlayerHUD
@@ -5573,7 +5573,7 @@ INCLUDE "battle/move_names.asm"
 
 INCLUDE "engine/landmarks.asm"
 
-SECTION "bank77", ROMX, BANK[$77]
+SECTION "bank77", ROMX [$4000], BANK[$77]
 
 UnownFont: ; 1dc000
 INCBIN "gfx/misc/unown_font.2bpp"
@@ -5586,7 +5586,7 @@ INCBIN "gfx/mobile/hp.1bpp"
 MobileLvIcon: ; 1dc599
 INCBIN "gfx/mobile/lv.1bpp"
 
-SECTION "Tileset Data 7", ROMX, BANK[TILESETS_7]
+SECTION "Tileset Data 7", ROMX [$45a1], BANK[TILESETS_7]
 
 INCLUDE "tilesets/data_7.asm"
 
@@ -5599,7 +5599,7 @@ Function1dd6a9: ; 1dd6a9
 	ld c, a
 	push bc
 	push de
-	ld hl, [sp+$2]
+	ld hl, sp+$2
 	ld d, h
 	ld e, l
 	pop hl
@@ -5625,7 +5625,7 @@ PrintHoursMins ; 1dd6bb (77:56bb)
 	ld b, a
 ; Crazy stuff happening with the stack
 	push bc
-	ld hl, [sp+$1]
+	ld hl, sp+$1
 	push de
 	push hl
 	pop de
@@ -5637,7 +5637,7 @@ PrintHoursMins ; 1dd6bb (77:56bb)
 	inc hl
 	ld d, h
 	ld e, l
-	ld hl, [sp+$0]
+	ld hl, sp+$0
 	push de
 	push hl
 	pop de

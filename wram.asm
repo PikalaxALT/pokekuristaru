@@ -11,7 +11,7 @@ StackTop::
 	ds 1
 
 
-SECTION "Audio", WRAM0
+SECTION "Audio RAM", WRAM0 [$c100]
 wMusic::
 MusicPlaying:: ; c100
 ; nonzero if playing
@@ -134,7 +134,7 @@ wMapMusic:: ; c2c0
 wDontPlayMapMusicOnReload:: ds 1
 wMusicEnd::
 
-SECTION "WRAM", WRAM0
+SECTION "WRAM", WRAM0 [$c2c2]
 
 wLZAddress:: dw ; c2c2
 wLZBank::    db ; c2c4
@@ -330,7 +330,7 @@ Sprites:: ; c400
 SpritesEnd::
 
 
-SECTION "Tilemap", WRAM0
+SECTION "Tilemap", WRAM0 [$c4a0]
 
 TileMap:: ; c4a0
 ; 20x18 grid of 8x8 tiles
@@ -338,7 +338,7 @@ TileMap:: ; c4a0
 TileMapEnd::
 
 
-SECTION "Battle", WRAM0
+SECTION "Battle", WRAM0 [$c608]
 wc608::
 wOddEgg:: party_struct OddEgg
 wOddEggName:: ds PKMN_NAME_LENGTH
@@ -1111,7 +1111,7 @@ wccb8:: ds 1
 wccb9:: ds 1
 wccba:: ds 102
 
-SECTION "Video", WRAM0
+SECTION "Video", WRAM0 [$cd20]
 CreditsPos::
 BGMapBuffer::
 wMobileMonSpeciesPointerBuffer:: dw
@@ -1514,7 +1514,7 @@ wDaysSince:: ds 1
 wRAM0End:: ; cfd8
 
 
-SECTION "WRAM 1", WRAMX, BANK [1]
+SECTION "WRAM 1", WRAMX [$d000], BANK [1]
 
 wd000:: ds 1
 DefaultSpawnpoint::

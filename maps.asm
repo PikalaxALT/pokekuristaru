@@ -265,7 +265,7 @@ INCLUDE "maps/Route40BattleTowerGate.asm"
 INCLUDE "maps/BattleTowerOutside.asm"
 
 
-SECTION "Map Scripts 13", ROMX, BANK[MAP_SCRIPTS_13]
+SECTION "Map Scripts 13", ROMX [$4000], BANK[MAP_SCRIPTS_13]
 
 INCLUDE "maps/IndigoPlateauPokeCenter1F.asm"
 INCLUDE "maps/WillsRoom.asm"

@@ -10,7 +10,7 @@ SECTION "Unown Pic Pointers", ROMX[$4000], BANK[UNOWN_PIC_POINTERS]
 UnownPicPointers:: INCLUDE "gfx/pics/unown_pic_pointers.asm"
 
 
-SECTION "Trainer Pic Pointers", ROMX, BANK[TRAINER_PIC_POINTERS]
+SECTION "Trainer Pic Pointers", ROMX [$4000], BANK[TRAINER_PIC_POINTERS]
 TrainerPicPointers:: INCLUDE "gfx/pics/trainer_pic_pointers.asm"
 
 

@@ -21,7 +21,7 @@ INCLUDE "audio/sfx_pointers.asm"
 
 
 
-SECTION "Songs 1", ROMX, BANK[SONGS_1]
+SECTION "Songs 1", ROMX [$54e9], BANK[SONGS_1]
 
 INCLUDE "audio/music/route36.asm"
 INCLUDE "audio/music/rivalbattle.asm"
@@ -76,7 +76,7 @@ INCLUDE "audio/music/contestresults.asm"
 INCLUDE "audio/music/route30.asm"
 
 
-SECTION "Songs 3", ROMX, BANK[SONGS_3]
+SECTION "Songs 3", ROMX [$4000], BANK[SONGS_3]
 
 INCLUDE "audio/music/violetcity.asm"
 INCLUDE "audio/music/route29.asm"
@@ -127,7 +127,7 @@ INCLUDE "audio/music/pokeflutechannel.asm"
 INCLUDE "audio/music/bugcatchingcontest.asm"
 
 
-SECTION "Songs 5", ROMX, BANK[SONGS_5]
+SECTION "Songs 5", ROMX [$401f], BANK[SONGS_5]
 
 INCLUDE "audio/music/mobileadaptermenu.asm"
 INCLUDE "audio/music/buenaspassword.asm"
@@ -140,7 +140,7 @@ INCLUDE "audio/music/mobilecenter.asm"
 
 
 
-SECTION "Extra Songs 1", ROMX, BANK[EXTRA_SONGS_1]
+SECTION "Extra Songs 1", ROMX [$731c], BANK[EXTRA_SONGS_1]
 
 INCLUDE "audio/music/credits.asm"
 INCLUDE "audio/music/clair.asm"
@@ -158,7 +158,7 @@ SECTION "Sound Effects", ROMX, BANK[SOUND_EFFECTS]
 INCLUDE "audio/sfx.asm"
 
 
-SECTION "Crystal Sound Effects", ROMX, BANK[CRYSTAL_SOUND_EFFECTS]
+SECTION "Crystal Sound Effects", ROMX [$582d], BANK[CRYSTAL_SOUND_EFFECTS]
 
 INCLUDE "audio/sfx_crystal.asm"
 

@@ -1,4 +1,4 @@
-SECTION "bank46", ROMX, BANK[$46]
+SECTION "bank46", ROMX [$4000], BANK[$46]
 
 Function118000: ; 118000
 	ld a, $1
@@ -5874,7 +5874,7 @@ Function11ad6e: ; 11ad6e
 	ld a, [wJumptableIndex]
 	ld hl, Jumptable_11ad78
 	call Function11b239
-	jp [hl]
+	jp hl
 ; 11ad78
 
 Jumptable_11ad78: ; 11ad78

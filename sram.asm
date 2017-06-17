@@ -117,13 +117,13 @@ sGameDataEnd::
 sChecksum::   ds 2
 s1_ad0f::     ds 1 ; loaded with 0x7f, used to check save corruption
 
-SECTION "Active Box", SRAM, BANK [1]
+SECTION "Active Box", SRAM [$ad10], BANK [1]
 ; ad10
 	box sBox
 ; b160
 
 	ds $f4
-SECTION "Link Battle Data", SRAM, BANK [1]
+SECTION "Link Battle Data", SRAM [$b254], BANK [1]
 sLinkBattleResults:: ds $c
 
 sLinkBattleStats:: ; b260
@@ -193,7 +193,7 @@ sHallOfFame:: ; b2c0
 ; endr
 sHallOfFameEnd::
 
-SECTION "SRAM Crystal Data", SRAM, BANK [1]
+SECTION "SRAM Crystal Data", SRAM [$be3c], BANK [1]
 sMobileEventIndex:: ds 1 ; be3c
 
 sCrystalData::
