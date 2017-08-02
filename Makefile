@@ -5,13 +5,13 @@ SHA1 := sha1sum
 endif
 
 .SUFFIXES:
-.PHONY: all clean tools compare crystal crystal11
+.PHONY: all clean tools compare kuristaru
 .SECONDEXPANSION:
 .PRECIOUS:
 .SECONDARY:
 
 
-crystal_obj := \
+kuristaru_obj := \
 wram.o \
 main.o \
 lib/mobile/main.o \
@@ -27,14 +27,11 @@ misc/crystal_misc.o \
 text/common_text.o \
 gfx/pics.o
 
-crystal11_obj := $(crystal_obj:.o=11.o)
 
+roms := pokekuristaru.gbc
 
-roms := pokecrystal.gbc pokecrystal11.gbc
-
-all: crystal
-crystal: pokecrystal.gbc
-crystal11: pokecrystal11.gbc
+all: kuristaru
+kuristaru: pokekuristaru.gbc
 
 # Ensure that the tools are built when making the ROM
 ifneq ($(MAKECMDGOALS),clean)
@@ -44,7 +41,7 @@ endif
 endif
 
 clean:
-	rm -f $(roms) $(crystal_obj) $(crystal11_obj) $(roms:.gbc=.map) $(roms:.gbc=.sym)
+	rm -f $(roms) $(kuristaru_obj) $(roms:.gbc=.map) $(roms:.gbc=.sym)
 	$(MAKE) clean -C tools/
 
 compare: $(roms)
@@ -53,21 +50,13 @@ compare: $(roms)
 tools:
 	$(MAKE) -C tools/
 
-%11.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
-%11.o: %.asm $$(dep)
-	rgbasm -D CRYSTAL11 -o $@ $<
-
 %.o: dep = $(shell tools/scan_includes $(@D)/$*.asm)
 %.o: %.asm $$(dep)
 	rgbasm -o $@ $<
 
-pokecrystal11.gbc: $(crystal11_obj)
-	rgblink -n pokecrystal11.sym -m pokecrystal11.map -l pokecrystal.ld -o $@ $^
-	rgbfix -Cjv -i BYTE -k 01 -l 0x33 -m 0x10 -n 1 -p 0 -r 3 -t PM_CRYSTAL $@
-
-pokecrystal.gbc: $(crystal_obj)
-	rgblink -n pokecrystal.sym -m pokecrystal.map -l pokecrystal.ld -o $@ $^
-	rgbfix -Cjv -i BYTE -k 01 -l 0x33 -m 0x10 -p 0 -r 3 -t PM_CRYSTAL $@
+pokekuristaru.gbc: $(kuristaru_obj)
+	rgblink -n pokekuristaru.sym -m pokekuristaru.map -l pokekuristaru.ld -o $@ $^
+	rgbfix -Cv -i BXTJ -k 01 -l 0x33 -m 0x10 -p 0 -r 5 -t PM_CRYSTAL $@
 
 
 # For files that the compressor can't match, there will be a .lz file suffixed with the md5 hash of the correct uncompressed file.
@@ -137,7 +126,7 @@ gfx/mail/0b9cfe.1bpp: tools/gfx += --remove-whitespace
 
 gfx/pokedex/%.2bpp: tools/gfx += --trim-whitespace
 
-gfx/title/crystal.2bpp: tools/gfx += --interleave --width=48
+gfx/title/kuristaru.2bpp: tools/gfx += --interleave --width=48
 gfx/title/old_fg.2bpp: tools/gfx += --interleave --width=64
 gfx/title/logo.2bpp: rgbgfx += -x 4
 

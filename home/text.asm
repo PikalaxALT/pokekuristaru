@@ -174,11 +174,11 @@ RadioTerminator:: ; 1052
 PrintText:: ; 1057
 	call SetUpTextBox
 BuenaPrintText:: ; 105a
-	push hl
-	hlcoord TEXTBOX_INNERX, TEXTBOX_INNERY
-	lb bc, TEXTBOX_INNERH - 1, TEXTBOX_INNERW
-	call ClearBox
-	pop hl
+	; push hl
+	; hlcoord TEXTBOX_INNERX, TEXTBOX_INNERY
+	; lb bc, TEXTBOX_INNERH - 1, TEXTBOX_INNERW
+	; call ClearBox
+	; pop hl
 
 PrintTextBoxText:: ; 1065
 	bccoord TEXTBOX_INNERX, TEXTBOX_INNERY
@@ -223,13 +223,6 @@ endc
 	jp z, \2
 endm
 
-dict2: macro
-	cp \1
-	jr nz, ._\@
-	ld a, \2
-._\@:
-endm
-
 	dict "<DAY>", Char15
 	dict "<LINE>", LineChar
 	dict "<NEXT>", NextLineChar
@@ -259,8 +252,10 @@ endm
 	dict "<PROMPT>", PromptText
 	dict "<PKMN>", PlacePKMN
 	dict "<POKE>", PlacePOKE
-	dict $25, NextChar
-	dict2 $1f, " "
+	dict $25, Char25
+	dict $1f, Char1F
+	dict $1e, Char1E
+	dict $1d, Char1D
 	dict "<DEXEND>", PlaceDexEnd
 	dict "<TARGET>", PlaceMoveTargetsName
 	dict "<USER>", PlaceMoveUsersName
@@ -268,10 +263,9 @@ endm
 	dict "<PLAY_G>", PlaceGenderedPlayerName
 
 	cp "ﾟ"
-	jr z, .place ; should be .diacritic
+	jr z, .diacritic ; should be .diacritic
 	cp "ﾞ"
-	jr z, .place ; should be .diacritic
-	jr .not_diacritic
+	jr nz, .not_diacritic
 
 .diacritic
 	ld b, a
@@ -314,7 +308,6 @@ endm
 	jp NextChar
 ; 0x117b
 
-
 Char15:: ; 117b
 	ld c, l
 	ld b, h
@@ -341,13 +334,17 @@ PCChar:       print_name PCCharText      ; 11b7
 RocketChar:   print_name RocketCharText  ; 11be
 PlacePOKe:    print_name PlacePOKeText   ; 11c5
 PlaceKougeki: print_name KougekiText     ; 11cc
+Char22:       print_name Char22Text
 SixDotsChar:  print_name SixDotsCharText ; 11d3
 PlacePKMN:    print_name PlacePKMNText   ; 11da
 PlacePOKE:    print_name PlacePOKEText   ; 11e1
+Char25:       print_name Char25Text
+Char1F:       print_name Char1FText
+Char1D:       print_name Char1DText
+Char1E:       print_name Char1EText
 Char35:       print_name Char35Text      ; 11e8
 Char36:       print_name Char36Text      ; 11ef
 Char37:       print_name Char37Text      ; 11f6
-
 
 PlaceMoveTargetsName:: ; 11fd
 	ld a, [hBattleTurn]
@@ -430,10 +427,10 @@ PlaceCommandCharacter:: ; 126a
 	jp NextChar
 ; 0x1273
 
-TMCharText:: db "TM@" ; 1273
-TrainerCharText:: db "TRAINER@" ; 1276
-PCCharText:: db "PC@" ; 127e
-RocketCharText:: db "ROCKET@" ; 1281
+TMCharText:: db "わざマシン@" ; 1273
+TrainerCharText:: db "トレーナー@" ; 1276
+PCCharText:: db "パソコン@" ; 127e
+RocketCharText:: db "ロケットだん@" ; 1281
 PlacePOKeText:: db "POKé@" ; 1288
 KougekiText:: db "こうげき@" ; 128d
 SixDotsCharText:: db "……@" ; 1292
@@ -441,6 +438,11 @@ EnemyText:: db "Enemy @" ; 1295
 PlacePKMNText:: db "<PK><MN>@" ; PK MN ; 129c
 PlacePOKEText:: db "<PO><KE>@" ; PO KE ; 129f
 String12a2:: db " @" ; 12a2
+Char25Text:: ; Placeholder
+Char22Text:: ; Placeholder
+Char1FText:: ; Placeholder
+Char1EText:: ; Placeholder
+Char1DText:: ; Placeholder
 Char35Text::
 Char36Text::
 Char37Text:: db "@" ; 12a4
@@ -456,7 +458,6 @@ NextLineChar:: ; 12a7
 	jp NextChar
 ; 12b0
 
-Char22:: ; 12b0
 	pop hl
 	ld bc, SCREEN_WIDTH
 	add hl, bc

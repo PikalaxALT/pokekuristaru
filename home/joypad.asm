@@ -204,16 +204,16 @@ GetJoypad:: ; 984
 ; A duration of $ff will end the stream indefinitely.
 	ld a, [hli]
 	ld [AutoInputLength], a
-	cp a, -1
-	jr nz, .next
+	; cp a, -1
+	; jr nz, .next
 
-; The current input is overwritten.
-	dec hl
-	dec hl
-	ld b, NO_INPUT
-	jr .finishauto
+; ; The current input is overwritten.
+	; dec hl
+	; dec hl
+	; ld b, NO_INPUT
+	; jr .finishauto
 
-.next
+; .next
 ; On to the next input...
 	ld a, l
 	ld [AutoInputAddress], a
@@ -411,10 +411,10 @@ ButtonSound:: ; aaf
 	push af
 	ld a, $1
 	ld [hOAMUpdate], a
-	ld a, [InputType]
-	or a
-	jr z, .input_wait_loop
-	callba _DudeAutoInput_A
+	; ld a, [InputType]
+	; or a
+	; jr z, .input_wait_loop
+	; callba _DudeAutoInput_A
 
 .input_wait_loop
 	call .blink_cursor
