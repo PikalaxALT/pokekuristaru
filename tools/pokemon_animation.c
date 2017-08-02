@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <getopt.h>
 
 struct Frame {
 	uint8_t* data;
@@ -53,9 +54,17 @@ void make_frames(struct Frames* frames, struct Bitmasks* bitmasks, char* tilemap
 
 	fseek(f, 0, SEEK_END);
 	size = ftell(f);
+	if (!size) {
+		fprintf(stderr, "empty file %s\n", tilemap_filename);
+		exit(1);
+	}
 	rewind(f);
 
 	tilemap = malloc(size);
+	if (!tilemap) {
+		fprintf(stderr, "malloc failure\n");
+		exit(1);
+	}
 	fread(tilemap, 1, size, f);
 	fclose(f);
 
@@ -228,7 +237,7 @@ int main(int argc, char* argv[]) {
 	struct Frames frames = {0};
 	struct Bitmasks bitmasks = {0};
 	int ch;
-	bool use_bitmasks, use_frames;
+	bool use_bitmasks = false, use_frames = false;
 	char* tilemap_filename;
 	char* dimensions_filename;
 

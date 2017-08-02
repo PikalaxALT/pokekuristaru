@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <getopt.h>
 
 void usage(void) {
 	printf("Usage: palette palfile\n");
@@ -49,9 +50,17 @@ void print_palette(char* palette_filename) {
 
 	fseek(f, 0, SEEK_END);
 	size = ftell(f);
+	if (!size) {
+		fprintf(stderr, "empty file %s\n", palette_filename);
+		exit(1);
+	}
 	rewind(f);
 
 	bytes = malloc(size);
+	if (!bytes) {
+		fprintf(stderr, "malloc failure\n");
+		exit(1);
+	}
 
 	fseek(f, 0, SEEK_SET);
 	fread(bytes, 1, size, f);
@@ -64,7 +73,7 @@ void print_palette(char* palette_filename) {
 
 int main(int argc, char* argv[]) {
 	int ch;
-	bool pokemon;
+	bool pokemon = false;
 
 	while ((ch = getopt(argc, argv, "p")) != -1) {
 		switch (ch) {
