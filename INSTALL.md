@@ -1,15 +1,15 @@
-The source files are assembled into a rom using [**rgbds**](https://github.com/rednex/rgbds).
+The source files are assembled into a ROM using [**rgbds**](https://github.com/gbdev/rgbds).
 These instructions explain how to set up the tools required to build.
 
-If you run into trouble, ask on irc ([**freenode#pret**](https://kiwiirc.com/client/irc.freenode.net/?#pret)).
+If you run into trouble, ask on IRC or Discord (see (README.md)[README.md]).
 
 
-# Linux
+# Linux (Ubuntu/Debian and derivatives, excluding Arch and Manjaro-like distros.)
 
 ```bash
 sudo apt-get install make gcc bison git libpng-dev
 
-git clone https://github.com/rednex/rgbds
+git clone https://github.com/gbdev/rgbds
 cd rgbds
 git checkout v0.2.5
 sudo make install
@@ -33,15 +33,17 @@ In **Terminal**, run:
 ```bash
 xcode-select --install
 
-git clone https://github.com/rednex/rgbds
+git clone https://github.com/gbdev/rgbds
 cd rgbds
 git checkout v0.2.5
 sudo make install
 cd ..
 
-git clone https://github.com/pret/pokecrystal
-cd pokecrystal
+git clone https://github.com/PikalaxALT/pokekuristaru
+cd pokekuristaru
 ```
+
+Note: You will need Xcode's command line utilities installed.
 
 To build **pokecrystal.gbc**:
 
@@ -52,7 +54,7 @@ make
 
 # Windows
 
-To build on Windows, install [**Cygwin**](http://cygwin.com/install.html) with the default settings.
+To build on Windows 8.1 and earlier, install [**Cygwin**](http://cygwin.com/install.html) with the default settings.
 
 In the installer, select the following packages: `make` `git` `gettext` `gcc-core`
 
@@ -73,6 +75,10 @@ To build **pokecrystal.gbc**:
 make
 ```
 
-## notes
+To build on Windows 10 and up, install the Windows Subsystem for Linux (WSL) following the instructions [here](https://docs.microsoft.com/en-us/windows/wsl/install). (Make sure to install the Debian or Ubuntu app for WSL. Other distros may not work. (Ubuntu/Debian and derivatives, excluding Arch and Manjaro-like distros.)
 
-- If `gettext` no longer exists, grab `libsasl2-3` `ca-certificates`.
+Once WSL is fully setup, open the Ubuntu or Debian app and follow the [Linux instructions](#Linux-(Ubuntu/Debian-and-derivatives-excluding-Arch-and-Manjaro-like-distros.)) Then, find **pokecrystal** in `\\wsl$\pokecrystal/pokecrystal.gbc`
+
+## Notes
+
+- If `gettext` no longer exists, grab `libsasl2-3` and `ca-certificates`.
